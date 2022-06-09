@@ -11,15 +11,15 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class NewEntityService {
-    private final NewEntityRepository repository;
+public class FooService {
+    private final FooRepository repository;
 
     @Transactional
-    public Mono<NewEntity> save(String imei) {
-        return repository.findByImei(imei).count().
-                map(count -> NewEntity.builder()
+    public Mono<FooEntity> save(String localIdentifier) {
+        return repository.findBylocalIdentifier(localIdentifier).count().
+                map(count -> FooEntity.builder()
                         .id(UUID.randomUUID().toString())
-                        .imei(imei)
+                        .localIdentifier(localIdentifier)
                         .count(count)
                         .build())
                 .flatMap(repository::save);

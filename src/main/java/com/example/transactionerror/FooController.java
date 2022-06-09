@@ -15,23 +15,23 @@ import java.util.stream.IntStream;
 
 @Slf4j
 @RestController
-@RequestMapping("/rm1657")
+@RequestMapping("/foo")
 @RequiredArgsConstructor
-public class RM1657Controller {
-    private final RM1657Service rm1657Service;
+public class FooController {
+    private final FooService fooService;
 
-    @PostMapping("/save/{imei}")
-    public Mono<String> save(@PathVariable("imei") final String imei) {
-        return rm1657Service.save(imei)
-                .map(rm1657Entity -> MessageFormat.format("Saved for imei {0} with count = {1}", rm1657Entity.getImei(), rm1657Entity.getCount()))
+    @PostMapping("/save/{localIdentifier}")
+    public Mono<String> save(@PathVariable("localIdentifier") final String localIdentifier) {
+        return fooService.save(localIdentifier)
+                .map(fooEntity -> MessageFormat.format("Saved for localIdentifier {0} with count = {1}", fooEntity.getLocalIdentifier(), fooEntity.getCount()))
                 .doOnSuccess(log::info)
                 .doOnError(throwable -> log.error(throwable.getMessage()));
     }
 
     @GetMapping("/save/with-error")
     public ResponseEntity<Object> saveError() {
-        IntStream.rangeClosed(0, 3).boxed().forEach(i -> rm1657Service.save("1")
-                .map(rm1657Entity -> MessageFormat.format("Saved for imei {0} with count = {1}", rm1657Entity.getImei(), rm1657Entity.getCount()))
+        IntStream.rangeClosed(0, 3).boxed().forEach(i -> fooService.save("1")
+                .map(fooEntity -> MessageFormat.format("Saved for localIdentifier {0} with count = {1}", fooEntity.getLocalIdentifier(), fooEntity.getCount()))
                 .doOnSuccess(log::info)
                 .doOnError(throwable -> log.error(throwable.getMessage()))
                 .subscribe());
@@ -40,8 +40,8 @@ public class RM1657Controller {
 
     @GetMapping("/save/error-free")
     public ResponseEntity<Object> saveSafe() {
-        IntStream.rangeClosed(0, 30).boxed().forEach(i -> rm1657Service.save(i.toString())
-                .map(rm1657Entity -> MessageFormat.format("Saved for imei {0} with count = {1}", rm1657Entity.getImei(), rm1657Entity.getCount()))
+        IntStream.rangeClosed(0, 30).boxed().forEach(i -> fooService.save(i.toString())
+                .map(fooEntity -> MessageFormat.format("Saved for localIdentifier {0} with count = {1}", fooEntity.getLocalIdentifier(), fooEntity.getCount()))
                 .doOnSuccess(log::info)
                 .doOnError(throwable -> log.error(throwable.getMessage()))
                 .subscribe());

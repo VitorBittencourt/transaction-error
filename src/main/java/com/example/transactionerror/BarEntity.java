@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collectionName = "NewEntity")
-public class NewEntity {
+@Document(collectionName = "BarEntity")
+public class BarEntity {
     @DocumentId
     private String id;
-    private String imei;
+    private String localIdentifier;
     private long count;
 }

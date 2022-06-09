@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JoinDTO {
-    private String imei;
-    private List<Long> rmCount;
-    private List<Long> neCount;
+    private String localIdentifier;
+    private List<Long> fooCountList;
+    private Long barCount;
 }
