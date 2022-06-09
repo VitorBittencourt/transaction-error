@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collectionName = "RM1657")
-public class RM1657Entity {
+@Document(collectionName = "NewEntity")
+public class NewEntity {
     @DocumentId
     private String id;
     private String imei;

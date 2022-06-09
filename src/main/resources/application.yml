@@ -2,3 +2,8 @@ spring:
   cloud:
     gcp:
       project-id: rentalmatics-dev
+      firestore:
+        emulator:
+          enabled: true
+        host-port: localhost:8087
+        project-id: rentalmatics-dev

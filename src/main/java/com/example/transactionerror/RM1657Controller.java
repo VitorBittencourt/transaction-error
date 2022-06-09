@@ -18,11 +18,11 @@ import java.util.stream.IntStream;
 @RequestMapping("/rm1657")
 @RequiredArgsConstructor
 public class RM1657Controller {
-    private final RM1657Service service;
+    private final RM1657Service rm1657Service;
 
     @PostMapping("/save/{imei}")
     public Mono<String> save(@PathVariable("imei") final String imei) {
-        return service.save(imei)
+        return rm1657Service.save(imei)
                 .map(rm1657Entity -> MessageFormat.format("Saved for imei {0} with count = {1}", rm1657Entity.getImei(), rm1657Entity.getCount()))
                 .doOnSuccess(log::info)
                 .doOnError(throwable -> log.error(throwable.getMessage()));
@@ -30,7 +30,7 @@ public class RM1657Controller {
 
     @GetMapping("/save/with-error")
     public ResponseEntity<Object> saveError() {
-        IntStream.rangeClosed(0, 3).boxed().forEach(i -> service.save("1")
+        IntStream.rangeClosed(0, 3).boxed().forEach(i -> rm1657Service.save("1")
                 .map(rm1657Entity -> MessageFormat.format("Saved for imei {0} with count = {1}", rm1657Entity.getImei(), rm1657Entity.getCount()))
                 .doOnSuccess(log::info)
                 .doOnError(throwable -> log.error(throwable.getMessage()))
@@ -40,7 +40,7 @@ public class RM1657Controller {
 
     @GetMapping("/save/error-free")
     public ResponseEntity<Object> saveSafe() {
-        IntStream.rangeClosed(0, 30).boxed().forEach(i -> service.save(i.toString())
+        IntStream.rangeClosed(0, 30).boxed().forEach(i -> rm1657Service.save(i.toString())
                 .map(rm1657Entity -> MessageFormat.format("Saved for imei {0} with count = {1}", rm1657Entity.getImei(), rm1657Entity.getCount()))
                 .doOnSuccess(log::info)
                 .doOnError(throwable -> log.error(throwable.getMessage()))
